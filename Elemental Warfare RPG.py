@@ -2,11 +2,11 @@ import random as random
 
 # Game Storage
 class Character:
-    def __init__(self, first, last, nickname, weapon, element, level, light, strong, ultimate):
+    def __init__(self, first, last, nickname, element, level, light, strong, ultimate):
         self.first = first
         self.last = last
         self.nickname = nickname
-        self.weapon = weapon
+
         self.level = level
         self.health = level * 10
         self.max_hp = level * 10
@@ -20,6 +20,9 @@ class Character:
         self.dmg_2 = self.damage * 2.5
         self.dmg_3 = self.damage * 5
 
+    def __repr__(self):
+        return repr("Welcome {full}, you are officially a part of the {nation}! Your element is {element} and your level is {level}!".format(full=Character.fullname(self), nation=self.nation, element=self.element, level=self.level))
+    
     def fullname(self):
         print(self.first + " " + self.last)
     
@@ -49,9 +52,9 @@ class Character:
         return self.dmg_2
     
     def ultimate_attack(self):
-        return self.dmg_2
+        return self.dmg_3
     
-    
+
             
 
     
@@ -101,8 +104,55 @@ if element == "Fire":
     print("The first attack will be a light attack. Your options are below.")
     print("Fire Flies|Fire Ball")
     light = input("> ")
-    while light != "Fire Flies" or light != "Fire Ball":
-        print("Make sure to type the attack correctly.")
+    while light != "Fire Flies" and light != "Fire Ball":
+        print("Make sure to type the attack correctly. Your options are below.")
+        print("Fire Flies|Fire Ball")
+        light = input("> ")
+
+elif element == "Water":
+    print("The first attack will be a light attack. Your options are below.")
+    print("Aqua Bullets|Water Spear")
+    light = input("> ")
+    while light != "Aqua Bullets" and light != "Water Spear":
+        print("Make sure to type the attack correctly. Your options are below.")
+        print("Aqua Bullets|Water Spear")
+        light = input("> ")
+
+elif element == "Earth":
+    print("The first attack will be a light attack. Your options are below.")
+    print("Earth Punch|Raining Rocks")
+    light = input("> ")
+    while light != "Earth Punch" and light != "Raining Rocks":
+        print("Make sure to type the attack correctly. Your options are below.")
+        print("Earth Punch|Raining Rocks")
+        light = input("> ")
+
+elif element == "Air":
+    print("The first attack will be a light attack. Your options are below.")
+    print("Wind Bullets|Wind Cutter")
+    light = input("> ")
+    while light != "Wind Bullets" and light != "Wind Cutter":
+        print("Make sure to type the attack correctly. Your options are below.")
+        print("Wind Bullets|Wind Cutter")
+        light = input("> ")
+
+elif element == "Lightning":
+    print("The first attack will be a light attack. Your options are below.")
+    print("Flashing Bolt|Quick Jab")
+    light = input("> ")
+    while light != "Flashing Bolt" and light != "Quick Jab":
+        print("Make sure to type the attack correctly. Your options are below.")
+        print("Flashing Bolt|Quick Jab")
+        light = input("> ")
+
+print("You are now ready to begin your adventure! Type anything to continue!")
+input("> ")
+
+player = Character(first, last, nickname, element, level, light, None, None)
+
+print(repr(Character()))
+print("Your first task is to get to the max level by defeating 3 enemies. The enemies will go from weakest to strongest.")
+print("You will use your light attack, {light}, to defeat these enemies. You will receive a strong attack once you reach level 5 and then receive an ultimate attack once you reach level 10.".format(light=player.light))
 
 
 
