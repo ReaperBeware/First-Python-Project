@@ -89,6 +89,9 @@ elements = ["Fire", "Water", "Earth", "Air", "Lightning"]
 element = random.choice(elements)
 print("You received the power of {}! You will fight for the {} Nation!".format(element, element))
 
+print("It is now time to obtain your level. The max level is 20 and you will level up by correctly answering questions. Each time you answer a question correctly, you will gain 2 levels.")
+
+print("Now it is time for the fg")
 
 
 
