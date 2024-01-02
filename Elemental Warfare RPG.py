@@ -2,7 +2,7 @@ import random as random
 
 # Game Storage
 class Character:
-    def __init__(self, first, last, nickname, weapon, element, level):
+    def __init__(self, first, last, nickname, weapon, element, level, light, strong, ultimate):
         self.first = first
         self.last = last
         self.nickname = nickname
@@ -13,6 +13,13 @@ class Character:
         self.damage = level * 1
         self.element = element
         self.nation = element + "Nation"
+        self.light = light
+        self.strong = strong
+        self.ultimate = ultimate
+        self.dmg_1 = self.damage * 1.5
+        self.dmg_2 = self.damage * 2.5
+        self.dmg_3 = self.damage * 5
+
     def fullname(self):
         print(self.first + " " + self.last)
     
@@ -35,6 +42,18 @@ class Character:
             self.health *= 1.10
             self.max_hp *= 1.10
         
+    def light_attack(self):
+         return self.dmg_1
+    
+    def strong_attack(self):
+        return self.dmg_2
+    
+    def ultimate_attack(self):
+        return self.dmg_2
+    
+    
+            
+
     
 
 
@@ -62,24 +81,8 @@ print("{}, what would you like your last name to be?".format(first))
 last = input("> ")
 print("What would you like your nickname to be? ")
 nickname = input("> ")
-print("Would you like to be a weapon user? Answer with either 'yes' or 'no'.")
-weaponChoice = input("> ")
 
-while weaponChoice != "yes" and weaponChoice != "no":
-    print("Answer with either 'yes' or 'no'.")
-    weaponChoice = input("> ")
 
-if weaponChoice == "yes":
-    print("Choose the weapon you would like to receive. List of weapons below.")
-    print("Katana | Spear | Dagger | Scythe")
-    weapon = input("> ")
-    
-    while weapon != "Katana" and weapon != "Spear" and weapon != "Dagger" and weapon != "Scythe":
-        print("Error.. answer with either 'Katana', 'Spear', 'Dagger', 'Scythe'.")
-        weapon = input("> ")
-
-else:
-    weapon = None
 
 print("Now you will receive a random element. Keep in mind, the element you receive will determine the nation you will fight for.")
 print("The five elements are Fire, Water, Earth, Air, and Lightning. Enter anything to receive your element.")
@@ -89,10 +92,17 @@ elements = ["Fire", "Water", "Earth", "Air", "Lightning"]
 element = random.choice(elements)
 print("You received the power of {}! You will fight for the {} Nation!".format(element, element))
 
-print("It is now time to obtain your level. The max level is 20 and you will level up by correctly answering questions. Each time you answer a question correctly, you will gain 2 levels.")
+level = 1
 
-print("Now it is time for the fg")
-
+print("Now that you have received your element, you will begin to train to level up and fight the enemy nations.")
+print("Your starting level is 1 and the max level is 10. You will need to defeat 3 enemies to reach max level.")
+print("Before then, you will choose your first move. You will have two options, choose wisely.")
+if element == "Fire":
+    print("The first attack will be a light attack. Your options are below.")
+    print("Fire Flies|Fire Ball")
+    light = input("> ")
+    while light != "Fire Flies" or light != "Fire Ball":
+        print("Make sure to type the attack correctly.")
 
 
 
