@@ -12,7 +12,7 @@ class Character:
         self.max_hp = level * 10
         self.damage = level * 1
         self.element = element
-        self.nation = element + "Nation"
+        self.nation = element + " Nation"
         self.light = light
         self.strong = strong
         self.ultimate = ultimate
@@ -20,11 +20,8 @@ class Character:
         self.dmg_2 = self.damage * 2.5
         self.dmg_3 = self.damage * 5
 
-    def __repr__(self):
-        return repr("Welcome {full}, you are officially a part of the {nation}! Your element is {element} and your level is {level}!".format(full=Character.fullname(self), nation=self.nation, element=self.element, level=self.level))
-    
     def fullname(self):
-        print(self.first + " " + self.last)
+        return self.first + " " + self.last
     
     def element_buff(self):
         if self.element == "Fire":
@@ -53,26 +50,6 @@ class Character:
     
     def ultimate_attack(self):
         return self.dmg_3
-    
-
-            
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # Beginning Menu
 print("Welcome to Elemental Warfare! Elemental Warfare is an rpg game that takes place during a great war between the 5 elemental nations. The fire nation, the water nation, the earth nation, the air nation, and the lightning nation are at war with eachother and it is your duty to claim victory for your nation!")
@@ -150,9 +127,17 @@ input("> ")
 
 player = Character(first, last, nickname, element, level, light, None, None)
 
-print(repr(Character()))
+print("Welcome {full}, you are officially a part of the {nation}! Your element is {element} and your level is {level}!".format(full=player.nickname, nation=player.nation, element=player.element, level=player.level))
 print("Your first task is to get to the max level by defeating 3 enemies. The enemies will go from weakest to strongest.")
 print("You will use your light attack, {light}, to defeat these enemies. You will receive a strong attack once you reach level 5 and then receive an ultimate attack once you reach level 10.".format(light=player.light))
+print("If you are ready to fight the first enemy? Enter 'yes' to continue.")
+ready = input("> ")
+
+while ready != "yes":
+    print("Enter 'yes' to continue.")
+    ready = input("> ")
+
+
 
 
 
