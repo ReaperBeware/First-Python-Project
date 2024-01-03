@@ -130,7 +130,7 @@ player.element_buff()
 enemy_1 = Character("Bol", "Dar", "The Mushroom", "Fire", 1, "Fire Ball", None, None)
 
 
-print("Welcome {full}, you are officially a part of the {nation}! Your element is {element} and your level is {level}!".format(full=player.nickname, nation=player.nation, element=player.element, level=player.level))
+print("Welcome {full}, you are officially a part of the {nation}! Your element is {element}, your level is {level}, and your health is {health}".format(full=player.nickname, nation=player.nation, element=player.element, level=player.level, health=player.health))
 print("Your first task is to get to the max level by defeating 3 enemies. The enemies will go from weakest to strongest.")
 print("You will use your light attack, {light}, to defeat these enemies. You will receive a strong attack once you reach level 5 and then receive an ultimate attack once you reach level 10.".format(light=player.light))
 print("If you are ready to fight the first enemy? Enter 'yes' to continue.")
