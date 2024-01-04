@@ -19,6 +19,19 @@ class Character:
         return self.first + " " + self.last
     
     @property
+    def enemy_nation(self):
+        if self.element == "Fire":
+            return "Water"
+        elif self.element == "Water":
+            return "Fire"
+        elif self.element == "Air":
+            return "Earth"
+        elif self.element == "Earth":
+            return "Lightning"
+        elif self.element == "Lightning":
+            return "Air"
+
+    @property
     def max_damage(self):
         if self.element == "Fire":
             return self.level * 2
@@ -27,7 +40,7 @@ class Character:
         elif self.element == "Earth":
             return self.level * 1.5
         elif self.element == "Lightning":
-            return self.level * 1.25
+            return self.level * 1.75
         else:
             return self.level
 
@@ -65,6 +78,8 @@ class Character:
         self.health = self.max_health
         self.damage = self.max_damage
     
+    def apply_hp(self):
+        self.health = self.max_health
 
 # Beginning Menu
 print("Welcome to Elemental Warfare! Elemental Warfare is an rpg game that takes place during a great war between the 5 elemental nations. The fire nation, the water nation, the earth nation, the air nation, and the lightning nation are at war with eachother and it is your duty to claim victory for your nation!")
@@ -284,8 +299,95 @@ while True:
         player.apply_level(4)
         break
 
-        
+print("Congratulations on defeating the third enemy.")
+print("You are officially level {}! Your max health is at {} and your max damage is at {}! Enter anything to continue.".format(player.level, player.max_health, player.max_damage))
+input("> ")
+
+print("Since you have reached the max level, you will now choose your ultimate attack. Your options are below.")
+
+if player.element == "Fire":
+    print("Solar Flare|Blast Breath")
+    ult = input("> ")
+    while ult != "Solar Flare" and ult != "Fire Impale":
+        print("Make sure to enter the name of the attack correctly. Your options are below.")
+        print("Solar Flare|Blast Breath")
+        ult = input("> ")
+elif player.element == "Water":
+    print("Grand Tsunami|Sharknado")
+    ult = input("> ")
+    while ult != "Grand Tsunami" and ult != "Sharknado":
+        print("Make sure to enter the name of the attack correctly. Your options are below.")
+        print("Grand Tsunami|Sharknado")
+        ult = input("> ")
+elif player.element == "Earth":
+    print("Molten Core|Earth Splitter")
+    ult = input("> ")
+    while ult != "Molten Core" and ult != "Earth Splitter":
+        print("Make sure to enter the name of the attack correctly. Your options are below.")
+        print("Molten Core|Earth Splitter")
+        ult = input("> ")
+elif player.element == "Air":
+    print("Gale Slicer|Slicing Hurricane")
+    strong = input("> ")
+    while ult != "Gale Slicer" and ult != "Grand Tornado":
+        print("Make sure to enter the name of the attack correctly. Your options are below.")
+        print("Gale Slicer|Slicing Hurricane")
+        ult = input("> ")
+elif player.element == "Lightning":
+    print("Liger Bomb|Lightning Dragon")
+    ult = input("> ")
+    while ult != "Liger Bomb" and ult != "Lightning Dragon":
+        print("Make sure to enter the name of the attack correctly. Your options are below.")
+        print("Liger Bomb|Lightning Dragon")
+        ult = input("> ")
+
+player.ultimate = ult
+print("Now you are all prepared for the Elemental War. Enter anything to continue.")
+input("> ")
+
+print("In the Elemental War, the {} is at war with the {} Nation. In order to be successful in this war, you will need to defeat the 3 {} Generals and then the {} Lord!".format(player.nation, player.enemy_nation, player.enemy_nation, player.enemy_nation))
+print("Enter anything to continue.")
+input("> ")
+
+general_1 = Character("Magnus", "Chorat", "The Ogor", player.enemy_nation, 5, None, None, None)
+general_1.apply_buff()
+
+print("You have now entered {} Nation territory. As you advance further into the territory, the first {} General spots you and stops you.".format(player.enemy_nation, player.enemy_nation))
+print("You will now have to defeat the first {} General to get closer to the {} Lord! He is the weakest General so this battle shouldn't take long. Enter anything to continue.".format(player.enemy_nation, player.enemy_nation))
+input("> ")
+
+print("When you defeat the first {} General, you will regain any lost health in the battle!".format(player.enemy_nation))
+print("Enter the name of your attacks, {}, {}, and {}, to attack the General.".format(player.light, player.strong, player.ultimate))
+
+while True:
+    general_attacks = [general_1.light_attack, general_1.strong_attack]
+    general_attack = random.choice(general_attacks)
+    attack_4 = input("> ")
+    while attack_4 != player.light and attack_4 != player.strong and attack_4 != player.ultimate:
+        print("Make sure to enter the name of your attacks, {}, {}, and {}, to attack your opponent.".format(player.light, player.strong, player.ultimate))
+        attack_4 = input("> ")
+
+    if attack_4 == player.light:
+        general_1.health -= player.light_attack
+        player.health -= general_attack
+    elif attack_4 == player.strong:
+        general_1.health -= player.strong_attack
+        player.health -= general_attack
+    elif attack_4 == player.ultimate:
+        general_1.health -= player.ultimate_attack
+        player.health -= general_attack
+
+    if general_1.health <= general_1.max_health and general_1.health >= 0.00000001:
+        print("Keep attacking, the Generals health is at {}".format(general_1.health))
+        print("{} hit you with an attack, your health is now at {}".format(general_1.nickname, player.health))
     
+    if general_1.health <= 0:
+        player.apply_hp()
+        break
+    
+    
+
+
 
 
 
