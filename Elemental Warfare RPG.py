@@ -1,4 +1,5 @@
 import random as random
+import sys as sys
 
 # Game Storage
 class Character:
@@ -384,7 +385,119 @@ while True:
     if general_1.health <= 0:
         player.apply_hp()
         break
+
+general_2 = Character("Igneel", "Dragon", "The Dragon", player.enemy_nation, 7, None, None, None)
+general_2.apply_buff()
+
+print("That wasn't the end of it, the second {} General is also here.".format(player.enemy_nation))
+print("You will now have to defeat the second {} General.".format(player.enemy_nation))
+print("Enter the name of your attacks, {}, {}, and {}, to attack the General.".format(player.light, player.strong, player.ultimate))
+
+while True:
+    general_attacks_2 = [general_2.light_attack, general_2.strong_attack]
+    general_attack_2 = random.choice(general_attacks_2)
+    attack_5 = input("> ")
+    while attack_5 != player.light and attack_5 != player.strong and attack_5 != player.ultimate:
+        print("Make sure to enter the name of your attacks, {}, {}, and {}, to attack your opponent.".format(player.light, player.strong, player.ultimate))
+        attack_5 = input("> ")
+
+    if attack_5 == player.light:
+        general_2.health -= player.light_attack
+        player.health -= general_attack_2
+    elif attack_5 == player.strong:
+        general_2.health -= player.strong_attack
+        player.health -= general_attack_2
+    elif attack_5 == player.ultimate:
+        general_2.health -= player.ultimate_attack
+        player.health -= general_attack_2
+
+    if general_2.health <= general_2.max_health and general_2.health >= 0.00000001:
+        print("Keep attacking, the Generals health is at {}".format(general_2.health))
+        print("{} hit you with an attack, your health is now at {}".format(general_2.nickname, player.health))
     
+    if general_2.health <= 0:
+        player.apply_hp()
+        break
+
+general_3 = Character("Dragneel", "Igor", "The Black Hand", player.enemy_nation, 8, None, None, None)
+general_3.apply_buff()
+print("Oh no, the third {} General is on his way. Prepare to battle him, he is the strongest {} General.".format(player.enemy_nation, player.enemy_nation))
+print("You will now have to defeat the third {} General.".format(player.enemy_nation))
+print("Enter the name of your attacks, {}, {}, and {}, to attack the General.".format(player.light, player.strong, player.ultimate))
+
+while True:
+    general_attacks_3 = [general_3.light_attack, general_3.strong_attack]
+    general_attack_3 = random.choice(general_attacks_3)
+    attack_6 = input("> ")
+    while attack_6 != player.light and attack_6 != player.strong and attack_6 != player.ultimate:
+        print("Make sure to enter the name of your attacks, {}, {}, and {}, to attack your opponent.".format(player.light, player.strong, player.ultimate))
+        attack_6 = input("> ")
+
+    if attack_6 == player.light:
+        general_3.health -= player.light_attack
+        player.health -= general_attack_3
+    elif attack_6 == player.strong:
+        general_3.health -= player.strong_attack
+        player.health -= general_attack_3
+    elif attack_6 == player.ultimate:
+        general_3.health -= player.ultimate_attack
+        player.health -= general_attack_3
+
+    if general_3.health <= general_3.max_health and general_3.health >= 0.00000001:
+        print("Keep attacking, the Generals health is at {}".format(general_3.health))
+        print("{} hit you with an attack, your health is now at {}".format(general_3.nickname, player.health))
+    
+    if player.health <= 0:
+        print("You died in battle. Game Over.")
+        sys.exit()
+    
+    if general_3.health <= 0:
+        player.apply_hp()
+        break
+
+
+print("Congratulations, you defeated all 3 of the {} Generals! Your only task now is to go the {} Lords Lair and defeat him.".format(player.enemy_nation,player.enemy_nation))
+print("Now keep in mind, this will be no easy task. He is one of the strongest people in the entire Elemental World! Enter anything to continue.")
+input("> ")
+print("Right as you walk into the {} Lords Lair, he appears before you.".format(player.enemy_nation))
+print("It is your task to defeat him. Enter anything to continue.")
+input("> ")
+
+lord = Character("Lordus", "Lorder", "The Great One", player.enemy_nation, 10, None, None, None)
+lord.apply_buff()
+print("Enter the name of your attacks, {}, {}, and {}, to attack the Lord.".format(player.light, player.strong, player.ultimate))
+
+while True:
+    lord_attacks = [lord.light_attack, lord.strong_attack, lord.ultimate_attack]
+    lord_attack = random.choice(lord_attacks)
+    attack_7 = input("> ")
+
+    while attack_7 != player.light and attack_7 != player.strong and attack_7 != player.ultimate:
+        print("Make sure to enter the name of your attacks, {}, {}, and {}, to attack your opponent.".format(player.light, player.strong,player.ultimate))
+        attack_7 = input("> ")
+    
+    if attack_7 == player.light:
+        lord.health -= player.light_attack
+        player.health -= lord_attack
+    elif attack_7 == player.strong:
+        lord.health -= player.strong_attack
+        player.health -= lord_attack
+    elif attack_7 == player.ultimate:
+        lord.health -= player.ultimate_attack
+        player.health -= lord_attack
+    
+    if player.health <= 0:
+        print("You died in battle. Game Over.")
+        sys.exit()
+    
+    if lord.health <= lord.max_health and lord.health >= 0.0000001:
+        print("Keep attacking, the Lords health is at {}".format(lord.health))
+        print("{} hit you with an attack, your health is now at {}".format(lord.nickname, player.health))
+    
+    if lord.health <= 0:
+        print("You did it! The {} has won the war against the {} Nation! The game is now over.".format(player.nation, player.enemy_nation))
+        break
+
     
 
 
