@@ -6,55 +6,69 @@ class Character:
         self.first = first
         self.last = last
         self.nickname = nickname
-        self.level = float(level)
-        self.health = float(level * 10.0)
-        self.max_hp = float(level * 10.0)
-        self.damage = float(level * 1.0)
+        self.level = level
+        self.damage = level
+        self.health = self.level * 10.0
         self.element = element
         self.nation = element + " Nation"
         self.light = light
         self.strong = strong
         self.ultimate = ultimate
-        self.dmg_1 = self.damage * 1.5
-        self.dmg_2 = self.damage * 2.5
-        self.dmg_3 = self.damage * 5.0
 
     def fullname(self):
         return self.first + " " + self.last
     
-    def element_buff(self):
+    @property
+    def max_damage(self):
         if self.element == "Fire":
-            self.dmg_1 *= 2
-            self.dmg_2 *= 2
-            self.dmg_3 *= 2
-        
-        if self.element == "Water":
-            self.health = self.health * 2.0
-            self.max_hp = self.max_hp * 2.0
-        
-        if self.element == "Earth":
-            self.dmg_1 *= 1.5
-            self.dmg_2 *= 1.5
-            self.dmg_3 *= 1.5
-            self.health = self.health * 1.5
-            self.max_hp = self.max_hp * 1.5
-        
+            return self.level * 2
+        elif self.element == "Air":
+            return self.level * 1.25
+        elif self.element == "Earth":
+            return self.level * 1.5
+        elif self.element == "Lightning":
+            return self.level * 1.25
+        else:
+            return self.level
+
+    @property
+    def light_attack(self):
+        return self.damage * 1.5
+    
+    @property
+    def strong_attack(self):
+        return self.damage * 2.5
+    
+    @property
+    def ultimate_attack(self):
+        return self.damage * 5
+    
+    @property
+    def max_health(self):
         if self.element == "Air":
-            self.dmg_1 *= 1.25
-            self.dmg_2 *= 1.25
-            self.dmg_3 *= 1.25
-            self.health = self.health * 1.75
-            self.max_hp = self.max_hp * 1.75
-        
-        if self.element == "Lightning":
-            self.dmg_1 *= 1.90
-            self.dmg_2 *= 1.90
-            self.dmg_3 *= 1.90
-            self.health = self.health * 1.10
-            self.max_hp = self.max_hp * 1.10
+            return self.level * 10 * 1.25
+        elif self.element == "Earth":
+            return self.level * 10 * 1.5
+        elif self.element == "Water":
+            return self.level * 10 * 2
+        elif self.element == "Lightning":
+            return self.level * 10 * 1.25
+        else:
+            return self.level * 10
+    
+    def apply_buff(self):
+        self.damage = self.max_damage
+        self.health = self.max_health
+
+    def apply_level(self, num):
+        self.level += num
+        self.health = self.max_health
+        self.damage = self.max_damage
+    
 
 # Beginning Menu
 print("Welcome to Elemental Warfare! Elemental Warfare is an rpg game that takes place during a great war between the 5 elemental nations. The fire nation, the water nation, the earth nation, the air nation, and the lightning nation are at war with eachother and it is your duty to claim victory for your nation!")
+
 print("Before we begin, you will create your character!")
 
 print("What would you like your first name to be?")
@@ -71,8 +85,6 @@ input("> ")
 elements = ["Fire", "Water", "Earth", "Air", "Lightning"]
 element = random.choice(elements)
 print("You received the power of {}! You will fight for the {} Nation!".format(element, element))
-
-level = 1.0
 
 print("Now that you have received your element, you will begin to train to level up and fight the enemy nations.")
 print("Your starting level is 1 and the max level is 10. You will need to defeat 3 enemies to reach max level.")
@@ -125,10 +137,10 @@ elif element == "Lightning":
 print("You are now ready to begin your adventure! Type anything to continue!")
 input("> ")
 
-player = Character(first, last, nickname, element, level, light, None, None)
-player.element_buff()
+player = Character(first, last, nickname, element, 1, light, None, None)
+player.apply_buff()
 enemy_1 = Character("Bol", "Dar", "The Mushroom", "Fire", 1, "Fire Ball", None, None)
-
+enemy_2 = Character("Con", "Sol", "The Dwarf", "Water", 2, "Aqua bullets", None, None)
 
 print("Welcome {full}, you are officially a part of the {nation}! Your element is {element}, your level is {level}, and your health is {health}".format(full=player.nickname, nation=player.nation, element=player.element, level=player.level, health=player.health))
 print("Your first task is to get to the max level by defeating 3 enemies. The enemies will go from weakest to strongest.")
@@ -156,26 +168,39 @@ while True:
         attack_1 = input("> ")
     
     if attack_1 == player.light:
-        enemy_1.health -= player.dmg_1
+        enemy_1.health -= player.light_attack
     
     if enemy_1.health <= 10 and enemy_1.health >= 0.1:
         print("Keep attacking, your enemys health is at {}.".format(enemy_1.health))
     
     if enemy_1.health <= 0:
-        player.level += 2.0 
+        player.apply_level(2)
         break
-
-    
-    
-
-
-
 
 print("Congratulations on defeating your first opponent!")
 print("You are officially level {}! Now it is time to battle the second enemy! If you defeat this enemy you will receive 3 levels and unlock your strong attack!".format(player.level))
+print("Your second enemy is {first} {last}, also known as {nick}. His level is {level} so this battle is a bit more difficult! He uses the {element} element and uses the {attack} attack.".format(first=enemy_2.first, last=enemy_2.last, nick=enemy_2.nickname, level=enemy_2.level, element=enemy_2.element, attack=enemy_2.light))
+print("This enemy attacks back so be careful! Enter anything to continue.")
+f = input("> ")
 
-    
-    
+print("Enter the name of your attack, {}, to attack your opponent.".format(player.light))
+
+while True:
+    attack_2 = input("> ")
+
+    while attack_2 != player.light:
+        print("Make sure to enter the name of your attack, {}, to atack your opponent.".format(player.light))
+        attack_2 = input("> ")
+
+    if attack_2 == player.light:
+        enemy_2.health -= player.light_attack
+
+    if enemy_2.health <= 20 and enemy_2.health >= 0.1:
+        print("Keep attacking, your enemys health is at {}.".format(enemy_2.health))
+
+    if enemy_2.health <= 0:
+        player.apply_level(3)
+        break
     
     
 
